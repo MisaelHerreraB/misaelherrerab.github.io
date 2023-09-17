@@ -1,1 +1,42 @@
-Hello World
+<!DOCTYPE html>
+<html>
+<body>
+<h1>HTML5 Canvas</h1>
+<h2>The drawImage() Method</h2>
+
+<p>Image to use:</p>
+<img id="scream" src="https://misaelherrerab.github.io/assets/imagenbase.png" alt="The Scream" width="220" height="277">
+
+<p><button onclick="draw()">Tryit</button></p>
+<div id="saveButton">
+    <a href="#" id="download-anchor" download>Download Image</a>
+</div>
+
+<p>Click Tryit to draw the image on the canvas.</p>
+<canvas id="myCanvas" width="220" height="277" style="border:1px solid grey"></canvas>
+
+<script>
+const downloadEl = document.getElementById('download-anchor');
+
+
+
+function draw() {
+    
+const c = document.getElementById("myCanvas");
+  const ctx = c.getContext("2d");
+
+    let image = new Image()
+    image.crossOrigin = "anonymous";
+    image.src = 'https://misaelherrerab.github.io/assets/imagenbase.png';
+    ctx.drawImage(image, 0, 0);
+
+
+    const link = document.createElement("a");
+link.download = "imagen-editada.png";
+link.href = c.toDataURL("image/png", 1.0).replace("image/png", "image/octet-stream");
+link.click();
+  }
+</script>
+
+</body>
+</html>
