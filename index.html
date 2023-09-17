@@ -1,40 +1,90 @@
 <!DOCTYPE html>
 <html>
 <body>
-<h1>HTML5 Canvas</h1>
-<h2>The drawImage() Method</h2>
+<h1>Congreso Mundial</h1>
+<h2>Generador de Fotochecks</h2>
+<img id="scream" src="https://misaelherrerab.github.io/assets/imagenbase.jpg" alt="The Scream" width="220" height="277">
+<br>
+<br>
+<input type="text" id="nombres" value="Nombres">
+<br>
+<br>
+<input type="text" id="apellidos" value="Apellidos">
+<br>
+<br>
+Hotel?
+<input id="isDiscounted" name="isDiscounted" type="radio" value= 0 checked> Si 
+<input id="isNotDiscounted" name="isDiscounted" type="radio" value= 1 > No
+<br>
+<input type="text" id="hotel" value="Nombre del Hotel">
+<br>
+<p><button onclick="draw()">Descargar</button></p>
 
-<p>Image to use:</p>
-<img id="scream" src="https://misaelherrerab.github.io/assets/imagenbase.png" alt="The Scream" width="220" height="277">
-
-<p><button onclick="draw()">Tryit</button></p>
-<div id="saveButton">
-    <a href="#" id="download-anchor" download>Download Image</a>
-</div>
-
-<p>Click Tryit to draw the image on the canvas.</p>
-<canvas id="myCanvas" width="220" height="277" style="border:1px solid grey"></canvas>
+<canvas id="myCanvas" width="1917" height="2809" style="border:1px solid grey" hidden></canvas>
 
 <script>
-const downloadEl = document.getElementById('download-anchor');
+var discounted = document.getElementById('isDiscounted');
+var no_discounted = document.getElementById('isNotDiscounted')
+var hotel_in = document.getElementById('hotel')
 
+function updateStatus() {
+  if (discounted.checked) {
+    hotel_in.disabled = false;
+  } else {
+    hotel_in.disabled = true;
+  }
+}
+
+discounted.addEventListener('change', updateStatus)
+no_discounted.addEventListener('change', updateStatus)
+
+
+
+
+
+window.addEventListener("load", draw1, true);
+function draw1() {
+    const c = document.getElementById("myCanvas");
+    const ctx = c.getContext("2d");
+    let image = new Image()
+    image.crossOrigin = "anonymous";
+    image.src = 'https://misaelherrerab.github.io/assets/imagenbase.jpg';
+    image.onload = function(){
+        ctx.drawImage(image, 0, 0);        
+    };
+  }
 
 
 function draw() {
-    
-const c = document.getElementById("myCanvas");
-  const ctx = c.getContext("2d");
+    const c = document.getElementById("myCanvas");
+    const ctx = c.getContext("2d");
+    var nombres = document.getElementById("nombres").value;
+    ctx.font = "bold 110px ArialMT";
+    ctx.textAlign = 'center';
+    ctx.fillText(nombres,958,1050);
 
-    let image = new Image()
-    image.crossOrigin = "anonymous";
-    image.src = 'https://misaelherrerab.github.io/assets/imagenbase.png';
-    ctx.drawImage(image, 0, 0);
+    var apellidos = document.getElementById("apellidos").value;
+    ctx.font = "110px ArialMT";
+    ctx.textAlign = 'center';
+    ctx.fillText(apellidos,958,1200);
 
+    var discounted = document.getElementById('isDiscounted');
+    if (discounted.checked) {
+        var hotel = document.getElementById("hotel").value;
+        ctx.font = "110px ArialMT";
+        ctx.textAlign = 'center';
+        ctx.fillText(hotel,958,1550);
+
+        ctx.font = "bold 110px ArialMT";
+        ctx.textAlign = 'center';
+        ctx.fillText("HOTEL",958,1700);
+    }
 
     const link = document.createElement("a");
-link.download = "imagen-editada.png";
-link.href = c.toDataURL("image/png", 1.0).replace("image/png", "image/octet-stream");
-link.click();
+    link.download = "imagen-editada.jpg";
+    link.href = c.toDataURL("image/jpg", 1.0).replace("image/jpg", "image/octet-stream");
+    link.click();
+    window.location.reload();
   }
 </script>
 
