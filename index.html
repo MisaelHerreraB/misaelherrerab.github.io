@@ -58,18 +58,19 @@ function draw1() {
 function draw() {
     const c = document.getElementById("myCanvas");
     const ctx = c.getContext("2d");
-    var nombres = document.getElementById("nombres").value;
-    ctx.font = "bold 110px ArialMT";
-    ctx.textAlign = 'center';
-    ctx.fillText(nombres,958,1050);
-
-    var apellidos = document.getElementById("apellidos").value;
-    ctx.font = "110px ArialMT";
-    ctx.textAlign = 'center';
-    ctx.fillText(apellidos,958,1200);
 
     var discounted = document.getElementById('isDiscounted');
     if (discounted.checked) {
+        var nombres = document.getElementById("nombres").value;
+        ctx.font = "bold 110px ArialMT";
+        ctx.textAlign = 'center';
+        ctx.fillText(nombres,958,1050);
+    
+        var apellidos = document.getElementById("apellidos").value;
+        ctx.font = "110px ArialMT";
+        ctx.textAlign = 'center';
+        ctx.fillText(apellidos,958,1200);
+      
         var hotel = document.getElementById("hotel").value;
         ctx.font = "110px ArialMT";
         ctx.textAlign = 'center';
@@ -78,6 +79,16 @@ function draw() {
         ctx.font = "bold 110px ArialMT";
         ctx.textAlign = 'center';
         ctx.fillText("HOTEL",958,1700);
+    } else {
+        var nombres = document.getElementById("nombres").value;
+        ctx.font = "bold 110px ArialMT";
+        ctx.textAlign = 'center';
+        ctx.fillText(nombres,958,1350);
+    
+        var apellidos = document.getElementById("apellidos").value;
+        ctx.font = "110px ArialMT";
+        ctx.textAlign = 'center';
+        ctx.fillText(apellidos,958,1500);
     }
 
     const link = document.createElement("a");
