@@ -1,70 +1,123 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <link
-      rel="stylesheet"
-      href=
-"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
-    <script src=
-"https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js">
-    </script>
-    <script src=
-"https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js">
-    </script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Congreso Mundial - Generador de Fotochecks</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .main-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            padding: 30px;
+            margin: 20px 0;
+        }
+        .form-section {
+            margin-bottom: 30px;
+        }
+        .preview-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 300px;
+        }
+        .preview-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        @media (max-width: 768px) {
+            .main-container {
+                margin: 10px;
+                padding: 20px;
+            }
+            .preview-section {
+                margin-top: 30px;
+            }
+        }
+        @media (max-width: 576px) {
+            .main-container {
+                margin: 5px;
+                padding: 15px;
+            }
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+        #myCanvas {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
 </head>
 <body>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-10 col-xl-8">
+                <div class="main-container">
+                    <div class="row">
+                        <!-- Formulario -->
+                        <div class="col-12 col-lg-8">
+                            <div class="form-section">
+                                <h2 class="text-center text-lg-start mb-3">Congreso Mundial</h2>
+                                <p class="text-center text-lg-start text-muted mb-4">Generador de Fotochecks</p>
+                                
+                                <form role="form">
+                                    <div class="mb-3">
+                                        <input type="text" id="nombres" class="form-control form-control-lg" placeholder="Nombres">
+                                    </div>
+                                    
+                                    <div class="mb-3">
+                                        <input type="text" id="apellidos" class="form-control form-control-lg" placeholder="Apellidos">
+                                    </div>
 
-
-<div class="container">
-    
-    <div class="row">
-		<form role="form" class="col-md-9">
-			<h2>Congreso Mundial</h2>
-            <p>Generador de Fotochecks</p>
-		<div class="form-group">
-            <input type="text" id="nombres" class="form-control" placeholder="Nombres">
-		</div>
-        <div class="form-group">
-            <input type="text" id="apellidos" class="form-control" placeholder="Apellidos">
-        </div>
-
-		<div class="form-group">
-            Hotel?
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="isDiscounted" id="isDiscounted" value= 0 checked>
-  <label class="form-check-label" for="inlineRadio1">Si</label>
-</div>
-<div class="form-check form-check-inline">
-  <input class="form-check-input" type="radio" name="isDiscounted" id="isNotDiscounted" value= 1>
-  <label class="form-check-label" for="inlineRadio2">No</label>
-</div>
-<!-- 
-<input id="isDiscounted" name="isDiscounted" class="form-control" type="radio" value= 0 checked> Si 
-<input id="isNotDiscounted" name="isDiscounted" class="form-control" type="radio" value= 1 > No
--->
-		</div>
-		<div class="form-group">
-            <input type="text" id="hotel" class="form-control" placeholder="Nombre del Hotel">
-		</div>
-            <div class="text-center">
-                <p><button class="btn btn-info btn-block rounded-0 py-2" onclick="draw()">Descargar</button></p>
+                                    <div class="mb-3">
+                                        <label class="form-label fw-bold">¿Hotel?</label>
+                                        <div class="d-flex gap-3">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="isDiscounted" id="isDiscounted" value="0" checked>
+                                                <label class="form-check-label" for="isDiscounted">Sí</label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="isDiscounted" id="isNotDiscounted" value="1">
+                                                <label class="form-check-label" for="isNotDiscounted">No</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <input type="text" id="hotel" class="form-control form-control-lg" placeholder="Nombre del Hotel">
+                                    </div>
+                                    
+                                    <div class="d-grid">
+                                        <button type="button" class="btn btn-primary btn-lg" onclick="draw()">Descargar Fotocheck</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        
+                        <!-- Preview -->
+                        <div class="col-12 col-lg-4">
+                            <div class="preview-section">
+                                <img id="scream" src="https://misaelherrerab.github.io/assets/imagenbase.jpg" alt="Preview" class="preview-image">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-		</form>
-
-<div class="row" col-md-3>
-    <br>
-    <br>
-     <img id="scream" src="https://misaelherrerab.github.io/assets/imagenbase.jpg" alt="The Scream" width="220" height="277" >
-</div>
-
-	</div>
-</div>
+        </div>
+    </div>
 
 
-<canvas id="myCanvas" width="1917" height="2809" style="border:1px solid grey" hidden></canvas>
-
-<script>
+    <canvas id="myCanvas" width="1917" height="2809" style="border:1px solid grey; max-width: 100%; height: auto;" hidden></canvas>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
 var discounted = document.getElementById('isDiscounted');
 var no_discounted = document.getElementById('isNotDiscounted')
 var hotel_in = document.getElementById('hotel')
